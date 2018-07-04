@@ -17,6 +17,7 @@ package com.example.android.sunshine;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sunshine.data.SunshinePreferences;
 import com.example.android.sunshine.utilities.NetworkUtils;
@@ -34,7 +36,7 @@ import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
 import java.net.URL;
 
 // TODO (8) Implement ForecastAdapterOnClickHandler from the MainActivity
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ForecastAdapter.ForecastAdapterOnClickHandler {
 
     private RecyclerView mRecyclerView;
     private ForecastAdapter mForecastAdapter;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mErrorMessageDisplay;
 
     private ProgressBar mLoadingIndicator;
+    @Nullable
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
          * The ForecastAdapter is responsible for linking our weather data with the Views that
          * will end up displaying our weather data.
          */
-        mForecastAdapter = new ForecastAdapter();
+        mForecastAdapter = new ForecastAdapter(this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mForecastAdapter);
@@ -109,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (9) Override ForecastAdapterOnClickHandler's onClick method
     // TODO (10) Show a Toast when an item is clicked, displaying that item's weather data
+    @Override
+    public void onForecastAdapterItemClick(String weatherItem) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+
+        mToast = Toast.makeText(this, weatherItem, Toast.LENGTH_SHORT);
+        mToast.show();
+    }
 
     /**
      * This method will make the View for the weather data visible and
