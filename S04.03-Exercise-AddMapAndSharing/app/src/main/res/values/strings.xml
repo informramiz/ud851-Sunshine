@@ -147,4 +147,7 @@
     <!--Used by SunshinePreferences-->
     <!-- - - - - - - - - - - - - - -->
     <!--NONE-->
+
+    <!--DetailActivity-->
+    <string name="share_weather_details">Share Weather Details</string>
 </resources>
