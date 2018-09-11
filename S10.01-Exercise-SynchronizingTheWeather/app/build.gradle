@@ -36,4 +36,6 @@ dependencies {
     androidTestImplementation 'com.android.support:support-annotations:27.1.1'
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test:rules:0.5'
+
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 }
